@@ -44,6 +44,31 @@ public class DoublyLinkedList {
 	private Node tail;
 	
 	
+	public static void main(String[] args){
+		
+		DoublyLinkedList list = new DoublyLinkedList();
+		
+		//Test nodes
+		Node nodeOne   = list.new Node(1);
+		Node nodeTwo   = list.new Node(2);
+		Node nodeThree = list.new Node(3);
+		
+		//Add nodes
+		list.addNode(nodeOne);
+		list.addNode(nodeTwo);
+		list.addNode(nodeThree);
+		list.printLinkedList();
+		
+		//Remove nodes
+		list.removeNode(2);
+		list.printLinkedList();
+		list.removeNode(1);
+		list.printLinkedList();
+		list.removeNode(3);
+		list.printLinkedList();
+	}
+	
+	
 	public DoublyLinkedList(){
 		
 	}
@@ -63,7 +88,7 @@ public class DoublyLinkedList {
 	
 	
 	public void removeNode(int id){
-		current = head;
+		Node current = head;
 		while (current != null){
 			if (current.getId() == id){
 				if (current == head && current == tail){
@@ -71,20 +96,31 @@ public class DoublyLinkedList {
 					tail = null; 
 				}
 				else if (current == head){
-					current.getNext() = head;
+					head = current.getNext();
 					current.getNext().setPrevious(null);
 				}
 				else if (current == tail){
-					current.getPrevious() = tail;
+					tail = current.getPrevious();
 					current.getPrevious().setNext(null);
 				}
 				else{
-					current.getNext().setPrevous(current.Prevous);
-					current.getPrevous().setNext(current.Next);
+					current.getNext().setPrevious(current.getPrevious());
+					current.getPrevious().setNext(current.getNext());
 				}
 			}
 			current = current.getNext();
 		}
+	}
+	
+		public void printLinkedList(){
+		Node current = head;
+		System.out.println("------------");
+		System.out.println("Doubly Linked List:");
+		while (current != null){
+			System.out.println(current.getId());
+			current = current.getNext();
+		}
+		System.out.println("------------");
 	}
 	
 	
